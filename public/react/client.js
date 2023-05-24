@@ -1,61 +1,40 @@
-const { Sequelize, DataTypes } = window.Sequelize;
 
-const sequelize = new Sequelize('database', 'name', 'description', 'price', 'category', 'image', {
-  host: 'localhost',
-  dialect: 'mysql',
- 
-});
 
-const Item = sequelize.define('Item', {
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  price: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
-  },
-  category: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  image: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
 
-// Handle form submission
-const itemForm = document.getElementById('item-form');
-itemForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  // Retrieve form values
-  const name = document.getElementById('name').value;
-  const description = document.getElementById('description').value;
-  const price = parseFloat(document.getElementById('price').value);
-  const category = document.getElementById('category').value;
-  const image = document.getElementById('image').value;
-
-  try {
-    // Create a new item using Sequelize
-    const newItem = await Item.create({
-      name,
-      description,
-      price,
-      category,
-      image,
+// Function to handle form submission
+function handleFormSubmit(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    
+    // Get the form data
+    const form = event.target;
+    const formData = new FormData(form);
+  
+    // Create an object from the form data
+    const item = {};
+    formData.forEach((value, key) => {
+      item[key] = value;
     });
-
-    console.log('New item created:', newItem);
-
-    // Reset the form
-    itemForm.reset();
-  } catch (error) {
-    console.error('Error creating item:', error);
+  
+    // Send a POST request to the server to add the item
+    fetch('/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(item),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Item added:', data);
+        // Handle the response data or perform additional actions
+      })
+      .catch(error => {
+        console.error('Error adding item:', error);
+        // Handle the error or display an error message
+      });
   }
-});
+  
+  // Add event listener to the form for form submission
+  const form = document.querySelector('#item-form');
+  form.addEventListener('submit', handleFormSubmit);
+  
