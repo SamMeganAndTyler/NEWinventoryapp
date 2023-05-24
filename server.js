@@ -1,5 +1,5 @@
 const express = require('express');
-const Item = require('./item.js'); // Import the Item model
+const Item = require('./Item.js'); // Import the Item model
 
 const app = express();
 const port = 3000; // Set the port number
