@@ -1,10 +1,19 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const path = require('path');
+const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: path.join(__dirname, 'db.sqlite'),
-    logging: false
+// Database configuration
+const sequelize = new Sequelize('database', 'name', 'description', 'price', 'category', 'image', {
+  host: 'localhost',
+  dialect: 'mysql', 
 });
 
-module.exports = {sequelize}
+// Test the database connection
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Database connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+})();
+
+module.exports = sequelize;
