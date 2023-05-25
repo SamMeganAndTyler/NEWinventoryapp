@@ -27,12 +27,12 @@
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
-    "@testing-library/react": "^12.1.5",
+    "@testing-library/react": "^14.0.0",
     "babel-jest": "^27.1.0",
     "cssnano": "^5.0.8",
     "jest": "^27.1.0",
     "postcss": "^8.3.11",
-    "postcss-cli": "^9.0.1"  
+    "postcss-cli": "^9.0.1"
   },
   "engines": {
     "node": ">=16.14"

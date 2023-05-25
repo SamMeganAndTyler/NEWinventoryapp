@@ -1,4 +1,4 @@
-// Replace the external module imports with browser-compatible alternatives
+
 import React from "react";
 import { createRoot } from "react-dom";
 
