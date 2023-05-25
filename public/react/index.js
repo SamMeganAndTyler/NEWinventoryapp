@@ -1,4 +1,4 @@
-import React from "react";
+const React = require("react");
 import { createRoot } from 'react-dom/client';
 import 'regenerator-runtime/runtime'
 
